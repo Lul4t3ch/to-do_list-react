@@ -32,5 +32,7 @@ module.exports = {
     quotes: 0,
     'no-console': 0,
     'import/no-extraneous-dependencies': 0,
+    'arrow-parens': 0,
+    'import/no-duplicates': 0,
   },
 };
