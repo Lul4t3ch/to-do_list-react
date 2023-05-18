@@ -11,6 +11,8 @@ export default class Main extends Component {
   state = {
     newTask: '',
     tasks: [],
+    // eslint-disable-next-line react/no-unused-state
+    index: -1,
   };
 
   handleInputChange = (e) => {
@@ -21,7 +23,7 @@ export default class Main extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { tasks } = this.state;
+    const { tasks, index } = this.state;
     let { newTask } = this.state;
     newTask = newTask.trim();
 
@@ -29,9 +31,20 @@ export default class Main extends Component {
 
     const newTasks = [...tasks];
 
-    this.setState({
-      tasks: [...newTasks, newTask],
-    });
+    if (index === -1) {
+      this.setState({
+        tasks: [...newTasks, newTask],
+        newTask: '',
+      });
+    } else {
+      newTasks[index] = newTask;
+
+      this.setState({
+        tasks: [...newTasks],
+        index: -1,
+        newTask: '',
+      });
+    }
   };
 
   // eslint-disable-next-line class-methods-use-this
@@ -47,7 +60,13 @@ export default class Main extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleEdit = (e, index) => {
-    console.log('Edit: ', index);
+    const { tasks } = this.state;
+
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      index,
+      newTask: tasks[index],
+    });
   };
 
   render() {
