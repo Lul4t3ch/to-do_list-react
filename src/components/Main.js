@@ -34,6 +34,22 @@ export default class Main extends Component {
     });
   };
 
+  // eslint-disable-next-line class-methods-use-this
+  handleDelete = (e, index) => {
+    const { tasks } = this.state;
+    const newTasks = [...tasks];
+    newTasks.splice(index, 1);
+
+    this.setState({
+      tasks: [...newTasks],
+    });
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  handleEdit = (e, index) => {
+    console.log('Edit: ', index);
+  };
+
   render() {
     const { newTask, tasks } = this.state;
 
@@ -53,12 +69,12 @@ export default class Main extends Component {
         </form>
 
         <ul className="tasks">
-          {tasks.map(task => (
+          {tasks.map((task, index) => (
             <li key={task}>
               {task}
               <span>
-                <FaEdit className="edit" />
-                <FaWindowClose className="delete" />
+                <FaEdit onClick={(e) => this.handleEdit(e, index)} className="edit" />
+                <FaWindowClose onClick={(e) => this.handleDelete(e, index)} className="delete" />
               </span>
             </li>
           ))}
