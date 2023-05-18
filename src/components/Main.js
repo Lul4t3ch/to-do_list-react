@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-//Form
-import { FaPlusCircle } from 'react-icons/fa';
 
-//Tasks
-import { FaEdit, FaWindowClose } from 'react-icons/fa';
+import Form from './Form';
+import Tasks from './Tasks';
 
 import './Main.css';
 
@@ -73,6 +71,7 @@ export default class Main extends Component {
 
     this.setState({
       tasks: [...newTasks],
+      newTask: '',
     });
   };
 
@@ -94,28 +93,18 @@ export default class Main extends Component {
       <div className='main'>
         <h1>To-do List</h1>
 
-        <form onSubmit={this.handleSubmit} action="#" className="form">
-          <input
-            onChange={this.handleInputChange}
-            type="text"
-            value={newTask}
-          />
-          <button type="submit">
-            <FaPlusCircle />
-          </button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleInputChange={this.handleInputChange}
+          newTask={newTask}
+        />
 
-        <ul className="tasks">
-          {tasks.map((task, index) => (
-            <li key={task}>
-              {task}
-              <span>
-                <FaEdit onClick={(e) => this.handleEdit(e, index)} className="edit" />
-                <FaWindowClose onClick={(e) => this.handleDelete(e, index)} className="delete" />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Tasks
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+          tasks={tasks}
+        />
+
       </div>
     );
   }
